@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
 	darkMode: ["class"],
@@ -52,6 +53,7 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+        /* Velzon specific sidebar colors, referencing CSS variables */
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -63,10 +65,18 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+      fontFamily: {
+        sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
+      },
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+        /* Default Shadcn/ui values, driven by --radius CSS variable */
+        /* --radius is set to 0.375rem (rounded-md) in index.css based on PRD */
+				lg: 'var(--radius)', // Becomes 0.375rem, mapping to Tailwind's 'md' (PRD default)
+				md: 'calc(var(--radius) - 2px)', // Becomes ~0.25rem, mapping to Tailwind's 'DEFAULT' or 'rounded' (PRD buttons)
+				sm: 'calc(var(--radius) - 4px)' // Becomes ~0.125rem, mapping to Tailwind's 'sm'
+        /* Note: Standard Tailwind radius classes like 'rounded-md', 'rounded-lg', 'rounded-full' remain available 
+           with their default Tailwind values. The PRD specified 'rounded-md' as default, 'rounded' for buttons,
+           and 'rounded-full' for full, which align with these standard Tailwind classes. */
 			},
 			keyframes: {
 				'accordion-down': {
